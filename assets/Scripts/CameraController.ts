@@ -27,9 +27,9 @@ export class CameraController extends Component {
     // moveScale 用于控制移动速度，避免移动过快
     const moveScale = 0.01;
     const curPos = this.node.position;
+    // 为了符合移动端的滑动方向，这里需要将移动距离取反
     const moveX = math.clamp(curPos.x - event.getDeltaX() * moveScale, this.moveMin.x, this.moveMax.x);
     const moveY = math.clamp(curPos.y - event.getDeltaY() * moveScale, this.moveMin.y, this.moveMax.y);
-    // 为了符合移动端的滑动方向，这里需要将移动距离取反
     this.node.setPosition(
       moveX,
       moveY,
