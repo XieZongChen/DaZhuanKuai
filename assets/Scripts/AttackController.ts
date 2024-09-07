@@ -1,6 +1,7 @@
 import {
   _decorator,
   Component,
+  EventTouch,
   Input,
   input,
   instantiate,
@@ -22,12 +23,39 @@ export class AttackController extends Component {
   @property
   public bulletSpeed: number = 40;
 
+  @property
+  public fireRate: number = 0.3;
+
+  private touched: boolean = false;
+  private fireTime: number = 0;
+
   start() {
     input.on(Input.EventType.TOUCH_START, this.onTouchStart, this);
+    input.on(Input.EventType.TOUCH_END, this.onTouchEnd, this);
   }
 
-  onTouchStart(event: any) {
-    // 创建子弹并设置到父节点
+  onTouchStart(event: EventTouch) {
+    this.touched = true;
+  }
+
+  onTouchEnd(event: EventTouch) {
+    this.touched = false;
+  }
+
+  update(deltaTime: number) {
+    // 只有在触摸状态下才会发射子弹
+    if (this.touched) {
+      // 根据游戏的帧率来计算发射子弹的时间间隔
+      this.fireTime += deltaTime;
+      if (this.fireTime > this.fireRate) {
+        this.fire();
+        this.fireTime = 0;
+      }
+    }
+  }
+
+  fire() {
+    // 实例化子弹并设置到父节点
     const bullet = instantiate(this.bulletPrefab);
     bullet.setParent(this.bulletParent);
 
@@ -39,6 +67,4 @@ export class AttackController extends Component {
     const rgd = bullet.getComponent(RigidBody);
     rgd.setLinearVelocity(new Vec3(0, 0, -this.bulletSpeed));
   }
-
-  update(deltaTime: number) {}
 }
