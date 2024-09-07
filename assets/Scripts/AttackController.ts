@@ -16,6 +16,9 @@ export class AttackController extends Component {
   @property({ type: Prefab })
   public bulletPrefab: Prefab;
 
+  @property(Node)
+  public bulletParent: Node;
+
   @property
   public bulletSpeed: number = 40;
 
@@ -26,7 +29,7 @@ export class AttackController extends Component {
   onTouchStart(event: any) {
     // 创建子弹并设置到父节点
     const bullet = instantiate(this.bulletPrefab);
-    bullet.setParent(this.node);
+    bullet.setParent(this.bulletParent);
 
     // 设置子弹初始化位置，以下两种方式都可以，不同之处在于是否与父节点（相机）的世界坐标系有关
     bullet.setWorldPosition(this.node.position);
