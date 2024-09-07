@@ -440,7 +440,7 @@
     "_bakeToReflectionProbe": true
   },
   {
-    "__type__": "cc.PlaneCollider",
+    "__type__": "cc.BoxCollider",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -457,14 +457,13 @@
       "y": 0,
       "z": 0
     },
-    "_normal": {
+    "_size": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 1,
-      "z": 0
+      "x": 10,
+      "y": 0.001,
+      "z": 10
     },
-    "_constant": 0,
-    "_id": "56zv336Q9EkaO4HMGjbxba"
+    "_id": "89g3UezJZD0ZapM40vqh7q"
   },
   {
     "__type__": "cc.Node",

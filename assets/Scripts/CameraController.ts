@@ -1,8 +1,8 @@
 import { _decorator, Component, EventTouch, Input, input, Node } from 'cc';
 const { ccclass, property } = _decorator;
 
-@ccclass('Camera')
-export class Camera extends Component {
+@ccclass('CameraController')
+export class CameraController extends Component {
   start() {
     input.on(Input.EventType.TOUCH_START, this.onTouchStart, this);
     input.on(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
