@@ -7,7 +7,7 @@ temp/
 build/
 local/
 profiles/
-native
+# native
 #//////////////////////////
 # NPM
 #//////////////////////////
