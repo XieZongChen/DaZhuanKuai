@@ -1,4 +1,14 @@
-import { _decorator, Component, EventTouch, Input, input, math, Node, Rect, Vec3 } from 'cc';
+import {
+  _decorator,
+  Component,
+  EventTouch,
+  Input,
+  input,
+  math,
+  Node,
+  Rect,
+  Vec3,
+} from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('CameraController')
@@ -21,6 +31,12 @@ export class CameraController extends Component {
     input.on(Input.EventType.TOUCH_END, this.onTouchEnd, this);
   }
 
+  onDestroy() {
+    input.off(Input.EventType.TOUCH_START, this.onTouchStart, this);
+    input.off(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
+    input.off(Input.EventType.TOUCH_END, this.onTouchEnd, this);
+  }
+
   onTouchStart(event: EventTouch) {}
 
   onTouchMove(event: EventTouch) {
@@ -28,13 +44,17 @@ export class CameraController extends Component {
     const moveScale = 0.01;
     const curPos = this.node.position;
     // 为了符合移动端的滑动方向，这里需要将移动距离取反
-    const moveX = math.clamp(curPos.x - event.getDeltaX() * moveScale, this.moveMin.x, this.moveMax.x);
-    const moveY = math.clamp(curPos.y - event.getDeltaY() * moveScale, this.moveMin.y, this.moveMax.y);
-    this.node.setPosition(
-      moveX,
-      moveY,
-      curPos.z
+    const moveX = math.clamp(
+      curPos.x - event.getDeltaX() * moveScale,
+      this.moveMin.x,
+      this.moveMax.x
     );
+    const moveY = math.clamp(
+      curPos.y - event.getDeltaY() * moveScale,
+      this.moveMin.y,
+      this.moveMax.y
+    );
+    this.node.setPosition(moveX, moveY, curPos.z);
   }
 
   onTouchEnd(event: EventTouch) {}
